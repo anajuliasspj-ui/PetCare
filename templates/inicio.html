@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetCare - Tabelas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #F0F1F2; font-family: sans-serif; }
+        .topo { background-color: #69aeb5; color: #F0F1F2; padding: 24px 0; margin-bottom: 30px; }
+        .topo h1 { margin: 0; font-size: 2rem; font-weight: bold; }
+        .secao { background: #fff; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 24px; margin-bottom: 30px; }
+        .secao h2 { font-size: 1.3rem; margin-bottom: 16px; color: #2c5f66; }
+        .table thead th { background-color: #69aeb5; color: #fff; border: none; }
+    </style>
+</head>
+<body>
+
+    <div class="topo">
+        <div class="container">
+            <h1>VetCare</h1>
+            <small>Dados cadastrados no sistema</small>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- CADASTRO -->
+        <div class="secao">
+            <h2>Responsáveis (cadastro)</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Responsável</th>
+                            <th>CPF</th>
+                            <th>Data de nascimento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in cadastros %}
+                        <tr>
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.responsavel }}</td>
+                            <td>{{ c.cpf }}</td>
+                            <td>{{ c.data_nascimento_responsavel.strftime('%d/%m/%Y') if c.data_nascimento_responsavel else '-' }}</td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="4"

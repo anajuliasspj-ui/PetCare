@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetCare - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cor-principal: #69aeb5;
+            --cor-escura: #2c5f66;
+            --cor-clara: #F0F1F2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: "Poppins", sans-serif;
+            color: var(--cor-clara);
+            background: linear-gradient(135deg, #69aeb5 0%, #2c5f66 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .titulo {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .subtitulo {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+        }
+
+        .titulo h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .titulo p {
+            margin: 4px 0 0;
+            font-weight: 300;
+            font-size: 1.05rem;
+        }
+
+        .card {
+            padding: 30px;
+            background-color: var(--cor-clara);
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--cor-escura);
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 11px 14px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            border: 1px solid #cfd4d6;
+            border-radius: 8px;
+            background-color: #fff;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .campo input:focus {
+            border-color: var(--cor-principal);
+            box-shadow: 0 0 0 3px rgba(105, 174, 181, 0.3);
+        }
+
+        .erro {
+            margin: 0 0 14px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #d62828;
+        }
+
+        .botao {
+            display: block;
+            width: 75%;
+            margin: 8px auto 0;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background-color: var(--cor-escura);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .botao:hover {
+            background-color: #234c52;
+        }
+
+        .botao:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+
+        <div class="titulo">
+            <span class="subtitulo">BEM-VINDO AO</span>
+            <h1>VetCare</h1>
+            <p>Cuidando do seu pet!</p>
+        </div>
+
+        <div class="card">
+            <form action="/login" method="POST">
+
+                <div class="campo">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="seunome@empresa.com" required>
+                </div>
+
+                <div class="campo">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                </div>
+
+                <p class="erro" id="erro" hidden>Email ou senha incorreto(s).<br>Tente novamente!</p>
+
+                <button type="submit" class="botao">Entrar</button>
+
+            </form>
+        </div>
+
+    </main>
+
+    <script>
+        // mostra o erro só quando o endereço terminar com ?erro=1
+        if (new URLSearchParams(window.location.search).get("erro") === "1") {
+            document.getElementById("erro").hidden = false;
+        }
+    </script>
+
+</body>
+</html>
