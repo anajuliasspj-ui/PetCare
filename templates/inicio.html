@@ -1,50 +1,134 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VetCare - Tabelas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #F0F1F2; font-family: sans-serif; }
-        .topo { background-color: #69aeb5; color: #F0F1F2; padding: 24px 0; margin-bottom: 30px; }
-        .topo h1 { margin: 0; font-size: 2rem; font-weight: bold; }
-        .secao { background: #fff; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 24px; margin-bottom: 30px; }
-        .secao h2 { font-size: 1.3rem; margin-bottom: 16px; color: #2c5f66; }
-        .table thead th { background-color: #69aeb5; color: #fff; border: none; }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <title>PetCare - Início</title>
 </head>
 <body>
 
-    <div class="topo">
-        <div class="container">
-            <h1>VetCare</h1>
-            <small>Dados cadastrados no sistema</small>
+    <div id="topbar">
+        <div id="logo">
+            <img src="/static/logonew-removebg-preview.png">
+        </div>
+
+        <div class="menu-topbar">
+            <a href="/tabela" class="menu-item">CONSULTAS</a>
+            <a href="/editar" class="menu-item">AGENDAR</a>
+
+        {% if session.get('tipo') == 'admin' %}
+            <a href="/acesso" class="menu-item">CONTAS</a>
+            <a href="/cadastro" class="menu-item">CADASTRO</a>
+        {% endif %}
+
+        </div>
+
+        <div id="perfil">
+            <div class="dropdown">
+                <img src="/static/logo_perfil.png" data-bs-toggle="dropdown" style="cursor: pointer;">
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li class="dropdown-item">Usuário: {{ session['usuario'] }}</li>
+                    <li class="dropdown-item">E-mail: {{ session['email'] }}</li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item sair" href="/logout">Sair</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="container">
+    <h1 id="titulo">Boas-vindas ao PetCare!</h1>
 
-        <!-- CADASTRO -->
-        <div class="secao">
-            <h2>Responsáveis (cadastro)</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Responsável</th>
-                            <th>CPF</th>
-                            <th>Data de nascimento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for c in cadastros %}
-                        <tr>
-                            <td>{{ c.id }}</td>
-                            <td>{{ c.responsavel }}</td>
-                            <td>{{ c.cpf }}</td>
-                            <td>{{ c.data_nascimento_responsavel.strftime('%d/%m/%Y') if c.data_nascimento_responsavel else '-' }}</td>
-                        </tr>
-                        {% else %}
-                        <tr><td colspan="4"
+    <!--
+        Cada "item" é uma linha vinda do banco, nesta ordem:
+        0 id | 1 tutor | 2 pet | 3 espécie | 4 tipo de consulta | 5 data e hora | 6 observações
+    -->
+    <div class="table-container">
+        <table class="table table-bordered tabela-estoque">
+            <tr>
+                <th>ID</th>
+                <th>TUTOR</th>
+                <th>PET</th>
+                <th>ESPÉCIE</th>
+                <th>TIPO DE CONSULTA</th>
+                <th>DATA E HORA</th>
+                <th>OBSERVAÇÕES</th>
+                <th>EXCLUIR</th>
+            </tr>
+
+            {% for item in resultado %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] or '-' }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] or '-' }}</td>
+                <td>{{ item[4] or '-' }}</td>
+                <td>{{ item[5].strftime('%d/%m/%Y às %H:%M') if item[5] else '-' }}</td>
+
+                <!-- OBSERVAÇÕES (abre o modal) -->
+                <td>
+                    <button class="btn btn-info btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#obs{{ item[0] }}">
+                        <span class="material-symbols-outlined">
+                            description
+                        </span>
+                    </button>
+                </td>
+
+                <!-- EXCLUIR -->
+                <td>
+                    <button class="btn btn-danger btn-sm"
+                            onclick="excluirItem('{{ item[0] }}')">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </button>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8" class="text-center">Nenhuma consulta agendada.</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% for item in resultado %}
+
+    <!-- MODAL OBSERVAÇÕES -->
+    <div class="modal fade" id="obs{{ item[0] }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{ item[2] }} - {{ item[4] or 'Consulta' }}
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    {{ item[6] or 'Sem observações.' }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

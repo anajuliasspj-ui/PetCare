@@ -19,7 +19,7 @@ def get_conn():
         password=os.getenv("DB_PASSWORD", ""),
         database=os.getenv("DB_NAME", "vetcare")
     )
-
+ 
 
 # PÁGINA PRINCIPAL
 @app.route("/")

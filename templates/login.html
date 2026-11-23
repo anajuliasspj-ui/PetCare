@@ -3,172 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VetCare - Login</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --cor-principal: #69aeb5;
-            --cor-escura: #2c5f66;
-            --cor-clara: #F0F1F2;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            font-family: "Poppins", sans-serif;
-            color: var(--cor-clara);
-            background: linear-gradient(135deg, #69aeb5 0%, #2c5f66 100%);
-        }
-
-        .container {
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .titulo {
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .subtitulo {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-        }
-
-        .titulo h1 {
-            margin: 0;
-            font-size: 2.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.25);
-        }
-
-        .titulo p {
-            margin: 4px 0 0;
-            font-weight: 300;
-            font-size: 1.05rem;
-        }
-
-        .card {
-            padding: 30px;
-            background-color: var(--cor-clara);
-            color: #333;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .campo {
-            margin-bottom: 18px;
-        }
-
-        .campo label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--cor-escura);
-        }
-
-        .campo input {
-            width: 100%;
-            padding: 11px 14px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            border: 1px solid #cfd4d6;
-            border-radius: 8px;
-            background-color: #fff;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .campo input:focus {
-            border-color: var(--cor-principal);
-            box-shadow: 0 0 0 3px rgba(105, 174, 181, 0.3);
-        }
-
-        .erro {
-            margin: 0 0 14px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #d62828;
-        }
-
-        .botao {
-            display: block;
-            width: 75%;
-            margin: 8px auto 0;
-            padding: 12px;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #fff;
-            background-color: var(--cor-escura);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-
-        .botao:hover {
-            background-color: #234c52;
-        }
-
-        .botao:active {
-            transform: scale(0.98);
-        }
-    </style>
+    <title>PetCare- Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500;600&display=swap">
+    <link rel="stylesheet" href ="static/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="icon" href="{{ url_for('static', filename='janela_icone.png') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
-<body>
+<body id="login-body">
 
-    <main class="container">
+    <!-- Ícone da patinha (desenhado uma vez e reaproveitado na trilha) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="pata" viewBox="0 0 32 32">
+            <ellipse cx="16" cy="21.5" rx="8" ry="6.3"/>
+            <ellipse cx="6.5" cy="13.5" rx="3" ry="3.8" transform="rotate(-18 6.5 13.5)"/>
+            <ellipse cx="12.6" cy="7.6" rx="3.1" ry="4"/>
+            <ellipse cx="19.4" cy="7.6" rx="3.1" ry="4"/>
+            <ellipse cx="25.5" cy="13.5" rx="3" ry="3.8" transform="rotate(18 25.5 13.5)"/>
+        </symbol>
+    </svg>
 
-        <div class="titulo">
-            <span class="subtitulo">BEM-VINDO AO</span>
-            <h1>VetCare</h1>
-            <p>Cuidando do seu pet!</p>
+    <div id="login-page">
+        <div id="login-img">
+            <img src="static/cachorro.png" alt="login-img">
         </div>
+        <div id="login-form">
+            <div id="titulo-login">
+                <h2>PetCare</h2>
+                <h1>Clínica veterinária</h1>
+            </div>
 
-        <div class="card">
-            <form action="/login" method="POST">
-
-                <div class="campo">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="seunome@empresa.com" required>
+            <div id="login-card">
+                <div id="fiep-img">
+                    <img src="static/logonew-removebg-preview.png" alt="logo-img">
+                </div>
+                <form action="/login" method="POST">
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="text" class="form-control" id="usuario" name="email" placeholder="seunome@empresa.com" required>
+                </div>
+                <div class="mb-3">
+                    <label>Senha</label>
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+                </div>
+                <div id="erro-login">
+                    <a>Email ou senha incorreto(s).<br> Tente novamente!</a>
                 </div>
 
-                <div class="campo">
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                <!-- Trilha de patinhas + cachorrinho (o cachorrinho é o botão de enviar) -->
+                <div id="trilha-botao">
+                    <div id="trilha" aria-hidden="true">
+                        <svg class="pata" style="--i:0"><use href="#pata"/></svg>
+                        <svg class="pata" style="--i:1"><use href="#pata"/></svg>
+                        <svg class="pata" style="--i:2"><use href="#pata"/></svg>
+                        <svg class="pata" style="--i:3"><use href="#pata"/></svg>
+                    </div>
+                    <button id="btn-entrar" type="submit" class="btn-dog" aria-label="Entrar">
+                        <img src="static/salsicha.png" alt="">
+                    </button>
                 </div>
-
-                <p class="erro" id="erro" hidden>Email ou senha incorreto(s).<br>Tente novamente!</p>
-
-                <button type="submit" class="botao">Entrar</button>
-
-            </form>
+                <p id="dica-patinhas">Siga as patinhas e toque no cachorrinho para entrar</p>
+                </form>
+            </div>
         </div>
-
-    </main>
+    </div>
 
     <script>
-        // mostra o erro só quando o endereço terminar com ?erro=1
-        if (new URLSearchParams(window.location.search).get("erro") === "1") {
-            document.getElementById("erro").hidden = false;
-        }
+        // Ao enviar, as patinhas aceleram e o cachorrinho pula enquanto a página carrega
+        document.querySelector("#login-card form").addEventListener("submit", function () {
+            document.getElementById("login-card").classList.add("enviando");
+        });
     </script>
-
 </body>
 </html>

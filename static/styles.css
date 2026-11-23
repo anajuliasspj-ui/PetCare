@@ -1,0 +1,175 @@
+body {
+  margin: 0;
+  background-color:#F0F1F2;
+  font-family: "Google Sans", sans-serif;
+}
+
+#login-body{
+  background-color:#69aeb5;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+#titulo-login{
+  margin-top: 0px;
+  margin-bottom: 25px;
+  font-family: sans-serif;
+}
+
+#titulo-login h2{
+  font-family: "Fredoka", "Trebuchet MS", sans-serif;
+  font-weight: 300;
+   color: #ffffff;
+  
+}
+
+#titulo-login h1{
+  font-family: "Fredoka", "Trebuchet MS", sans-serif;
+  font-weight: 600;   
+   color: #ffffff;
+}
+
+#login-page{
+  display: flex;
+  height: 100vh;
+}
+
+#login-img{
+  width: 45%;
+  position: relative;
+  overflow: hidden;
+}
+
+#login-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#login-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 100%;
+
+  background: linear-gradient(
+    to left,
+    rgba(16, 75, 101, 0.95) 0%,
+    rgba(35, 139, 157, 0.85) 35%,
+    rgba(53, 197, 208, 0.45) 65%,
+    rgba(53, 197, 208, 0) 100%
+  );
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+#fiep-img{
+  display: flex;
+  justify-content: center;
+}
+
+#fiep-img img{
+  width: 250px;
+  height: auto
+}
+
+#login-form {
+  width: 50%;
+  max-width: 460px;
+  padding: 10px 30px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+#erro-login{
+  text-align: center;
+  color: rgb(255, 0, 0)
+}
+
+#login-card {
+  --pata: #5aa0a8;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 65px 40px;
+  background-color: #F0F1F2;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+#trilha-botao{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+#trilha{
+  flex: 1;
+  min-width: 0;
+  height: 96px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.pata{
+  width: 22px;
+  height: 22px;
+  fill: var(--pata);
+  transform: translateY(var(--dy)) rotate(90deg);   
+  animation: passo 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.32s);          
+}
+.pata:nth-child(odd){  --dy: 11px; }
+.pata:nth-child(even){ --dy: -11px; }
+
+@keyframes passo{
+  0%, 100% { opacity: .28; }
+  18%, 40% { opacity: 1; }
+}
+
+#btn-entrar.btn-dog{
+  flex: 0 0 52%;
+  width: auto;
+  margin: 0;
+  padding: 6px;
+  background: none;
+  border: 0;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+#btn-entrar.btn-dog img{
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 5px 5px rgba(60, 40, 20, .22));
+}
+#btn-entrar.btn-dog:hover{ transform: rotate(-2deg) scale(1.05); }
+#btn-entrar.btn-dog:active{ transform: scale(.97); }
+#btn-entrar.btn-dog:focus-visible{ outline: 3px solid #69aeb5; outline-offset: 2px; }
+
+#dica-patinhas{
+  margin: 2px 0 0;
+  text-align: center;
+  font-size: .8rem;
+  color: #6b7378;
+}
+
+
+#login-card.enviando .pata{ animation-duration: .7s; }
+#login-card.enviando #btn-entrar{ animation: pulo .45s ease-in-out infinite; }
+@keyframes pulo{ 50% { transform: translateY(-8px) rotate(-2deg); } }
+
+@media (prefers-reduced-motion: reduce){
+  .pata, #login-card.enviando #btn-entrar{ animation: none; }
+  .pata{ opacity: .85; }
+  #btn-entrar.btn-dog{ transition: none; }
+}
